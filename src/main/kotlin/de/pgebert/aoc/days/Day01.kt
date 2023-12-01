@@ -1,11 +1,44 @@
 package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
-import de.pgebert.aoc.NOT_IMPLEMENTED
 
-object Day01 : Day(1, "Day1") {
+object Day01 : Day(1, "Trebuchet?!") {
 
-    override fun partOne() = NOT_IMPLEMENTED
+    private val numberStringsByValue = mapOf(
+        "one" to "1",
+        "two" to "2",
+        "three" to "3",
+        "four" to "4",
+        "five" to "5",
+        "six" to "6",
+        "seven" to "7",
+        "eight" to "8",
+        "nine" to "9"
+    )
 
-    override fun partTwo() = NOT_IMPLEMENTED
+    override fun partOne() =
+        inputList
+            .map { it.filter { char -> char.isDigit() } }
+            .map { "${it.first()}${it.last()}" }
+            .sumOf { it.toInt() }
+
+
+    override fun partTwo() = inputList.map { line ->
+        buildString {
+            line.forEachIndexed { index, character ->
+                if (character.isDigit()) {
+                    append(character)
+                } else {
+                    numberStringsByValue.forEach { (numberString, numberValue) ->
+                        if (line.substring(index).startsWith(numberString)) {
+                            append(numberValue)
+                        }
+                    }
+                }
+            }
+        }
+    }
+        .map { "${it.first()}${it.last()}" }
+        .sumOf { it.toInt() }
+
 }

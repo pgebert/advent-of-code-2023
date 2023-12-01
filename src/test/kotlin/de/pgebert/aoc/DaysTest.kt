@@ -16,7 +16,7 @@ class DaysTest {
 
     @TestFactory
     fun answers() = listOf(
-        Answer(Day01, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
+        Answer(Day01, 53974, 52840),
         Answer(Day02, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day03, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day04, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
