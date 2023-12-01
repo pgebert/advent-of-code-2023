@@ -3,9 +3,12 @@
 package de.pgebert.aoc
 
 import de.pgebert.aoc.days.*
-import org.junit.jupiter.api.Assertions
+import de.pgebert.aoc.utils.shouldBe
+import de.pgebert.aoc.utils.withInput
 import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
+
 
 class DaysTest {
     private data class Answer(
@@ -41,15 +44,30 @@ class DaysTest {
         Answer(Day23, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day24, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day25, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
-    ).map {
-        DynamicTest.dynamicTest("Day ${it.day.number} - ${it.day.title}") {
-            print("Testing Part 1 - Expecting ${it.partOne}..")
-            Assertions.assertEquals(it.partOne, it.day.partOne())
+    ).map { (day, expectedPartOne, expectedPartTwo) ->
+        DynamicTest.dynamicTest("Day ${day.number} - ${day.title}") {
+            print("Testing Part 1 - Expecting $expectedPartOne..")
+            day.partOne() shouldBe expectedPartOne
             print(" SUCCESS\n")
 
-            print("Testing Part 2 - Expecting ${it.partTwo}..")
-            Assertions.assertEquals(it.partTwo, it.day.partTwo())
+            print("Testing Part 2 - Expecting $expectedPartTwo..")
+            day.partTwo() shouldBe expectedPartTwo
             print(" SUCCESS\n")
         }
     }
+
+    @Test
+    fun `testing day 1 example`() {
+        val example = """
+            1abc2
+            pqr3stu8vwx
+            a1b2c3d4e5f
+            treb7uchet
+        """
+
+        val day = Day01.withInput(example)
+
+        day.partOne() shouldBe 142
+    }
+
 }
