@@ -4,9 +4,7 @@ package de.pgebert.aoc
 
 import de.pgebert.aoc.days.*
 import de.pgebert.aoc.utils.shouldBe
-import de.pgebert.aoc.utils.withInput
 import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 
@@ -20,7 +18,7 @@ class DaysTest {
     @TestFactory
     fun answers() = listOf(
         Answer(Day01, 53974, 52840),
-        Answer(Day02, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
+        Answer(Day02, 2377, 71220),
         Answer(Day03, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day04, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day05, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
@@ -46,28 +44,13 @@ class DaysTest {
         Answer(Day25, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
     ).map { (day, expectedPartOne, expectedPartTwo) ->
         DynamicTest.dynamicTest("Day ${day.number} - ${day.title}") {
-            print("Testing Part 1 - Expecting $expectedPartOne..")
+            print("Testing Day ${day.number} Part 1 - Expecting $expectedPartOne..")
             day.partOne() shouldBe expectedPartOne
             print(" SUCCESS\n")
 
-            print("Testing Part 2 - Expecting $expectedPartTwo..")
+            print("Testing Day ${day.number} Part 2 - Expecting $expectedPartTwo..")
             day.partTwo() shouldBe expectedPartTwo
             print(" SUCCESS\n")
         }
     }
-
-    @Test
-    fun `testing day 1 example`() {
-        val example = """
-            1abc2
-            pqr3stu8vwx
-            a1b2c3d4e5f
-            treb7uchet
-        """
-
-        val day = Day01.withInput(example)
-
-        day.partOne() shouldBe 142
-    }
-
 }
