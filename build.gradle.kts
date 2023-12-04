@@ -8,11 +8,8 @@ repositories {
     mavenCentral()
 }
 
-val mockkVersion = "1.13.8"
-
 dependencies {
     testImplementation(kotlin("test"))
-    testImplementation("io.mockk:mockk:${mockkVersion}")
 }
 
 tasks.test {
