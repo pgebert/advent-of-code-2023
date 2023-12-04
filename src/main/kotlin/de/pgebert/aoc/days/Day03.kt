@@ -6,78 +6,54 @@ import kotlin.math.min
 
 class Day03(input: String? = null) : Day(3, "Gear Ratios", input) {
 
+    private val numberRegex = "\\d+".toRegex()
+    private val specialCharacterRegex = "[^\\d.]".toRegex()
+    private val gearRegex = "\\*".toRegex()
 
-    val numberRegex = "\\d+".toRegex()
-    val characterRegex = "[^\\d.]".toRegex()
-    val gearRegex = "\\*".toRegex()
+    override fun partOne() = inputList.mapIndexed { row, line ->
 
+        numberRegex.findAll(line).sumOf { match ->
 
-    override fun partOne(): Int {
+            val rangeStart = max(match.range.first - 1, 0)
+            val rangeEnd = min(match.range.last + 1, inputList.first().length - 1)
 
+            val isSpecialCharacterAdjacent = isSpecialCharacterMatch(row, IntRange(rangeStart, rangeEnd))
 
-        var result = 0
-
-        inputList.forEachIndexed { row, line ->
-
-            numberRegex.findAll(line).forEach { match ->
-
-                val range =
-                    IntRange(max(match.range.first - 1, 0), min(match.range.last + 1, inputList.first().length - 1))
-
-
-                if (
-                    inputList.getOrNull(row - 1)?.slice(range)?.contains(characterRegex) == true
-                    || inputList.getOrNull(row + 1)?.slice(range)?.contains(characterRegex) == true
-                    || inputList[row].getOrNull(match.range.first - 1)?.toString()?.matches(characterRegex) == true
-                    || inputList[row].getOrNull(match.range.last + 1)?.toString()?.matches(characterRegex) == true
-                ) {
-                    result += match.value.toInt()
-                }
-
-
-            }
+            if (isSpecialCharacterAdjacent) match.value.toInt() else 0
         }
+    }.sum()
 
-        return result
 
+    private fun isSpecialCharacterMatch(rowIndex: Int, range: IntRange): Boolean {
+        val previousRow = inputList.getOrNull(rowIndex - 1)?.slice(range)?.contains(specialCharacterRegex)
+        val nextRow = inputList.getOrNull(rowIndex + 1)?.slice(range)?.contains(specialCharacterRegex)
+        val currentRowLeft = inputList[rowIndex].getOrNull(range.first)?.toString()?.matches(specialCharacterRegex)
+        val currentRowRight = inputList[rowIndex].getOrNull(range.last)?.toString()?.matches(specialCharacterRegex)
+
+        return listOf(previousRow, nextRow, currentRowLeft, currentRowRight).contains(true)
     }
 
-    override fun partTwo(): Int {
-        var result = 0
+    override fun partTwo() = inputList.mapIndexed { row, line ->
 
-        inputList.forEachIndexed { index, line ->
+        if (0 < row && row < inputList.size - 1) 0
 
-            if (0 < index && index < inputList.size - 1) {
+        gearRegex.findAll(line).sumOf { match ->
 
-                val matches = gearRegex.findAll(line).toList()
+            val rangeStart = max(match.range.first - 1, 0)
+            val rangeEnd = min(match.range.last + 1, inputList.first().length - 1)
 
-                matches.forEach { match ->
+            val numbers = findMatchingNumbers(row, IntRange(rangeStart, rangeEnd))
 
-                    val range =
-                        IntRange(max(match.range.first - 1, 0), min(match.range.last + 1, inputList.first().length - 1))
-
-                    val numbers =
-                        numberRegex.findAll(inputList[index - 1]).filter { it.range.intersect(range).isNotEmpty() }
-                            .toMutableSet()
-                            .plus(
-                                numberRegex.findAll(inputList[index])
-                                    .filter { it.range.intersect(range).isNotEmpty() })
-                            .plus(
-                                numberRegex.findAll(inputList[index + 1])
-                                    .filter { it.range.intersect(range).isNotEmpty() })
-                            .map { it.value.toInt() }
-
-
-                    if (numbers.size == 2) {
-                        result += numbers.first() * numbers.last()
-                    }
-
-
-                }
-            }
+            if (numbers.size == 2) numbers.first() * numbers.last() else 0
         }
+    }.sum()
 
 
-        return result
+    private fun findMatchingNumbers(rowIndex: Int, range: IntRange): List<Int> {
+        val previousRow = numberRegex.findAll(inputList[rowIndex - 1]).filter { it.range.intersect(range).isNotEmpty() }
+        val currentRow = numberRegex.findAll(inputList[rowIndex]).filter { it.range.intersect(range).isNotEmpty() }
+        val nextRow = numberRegex.findAll(inputList[rowIndex + 1]).filter { it.range.intersect(range).isNotEmpty() }
+
+        return (previousRow + currentRow + nextRow).map { it.value.toInt() }.toList()
     }
 }
