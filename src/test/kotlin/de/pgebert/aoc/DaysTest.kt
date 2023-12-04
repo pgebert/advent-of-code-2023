@@ -19,8 +19,8 @@ class DaysTest {
     fun answers() = listOf(
         Answer(Day01, 53974, 52840),
         Answer(Day02, 2377, 71220),
-        Answer(Day03, 557705, 84266818),
-        Answer(Day04, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
+        Answer(Day03(), 557705, 84266818),
+        Answer(Day04(), 33950, NOT_IMPLEMENTED),
         Answer(Day05, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day06, NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day07, NOT_IMPLEMENTED, NOT_IMPLEMENTED),

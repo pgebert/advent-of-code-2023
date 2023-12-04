@@ -4,11 +4,11 @@ import de.pgebert.aoc.Day
 import kotlin.math.max
 import kotlin.math.min
 
-object Day03 : Day(3, "Day3") {
+class Day03(input: String? = null) : Day(3, "Gear Ratios", input) {
 
 
     val numberRegex = "\\d+".toRegex()
-    val characterRegex = "[^A-Za-z0-9.]".toRegex()
+    val characterRegex = "[^\\d.]".toRegex()
     val gearRegex = "\\*".toRegex()
 
 
@@ -17,19 +17,13 @@ object Day03 : Day(3, "Day3") {
 
         var result = 0
 
-        println(inputList)
-
         inputList.forEachIndexed { row, line ->
 
-            val matches = numberRegex.findAll(line).toList()
-
-            matches.forEach { match ->
+            numberRegex.findAll(line).forEach { match ->
 
                 val range =
                     IntRange(max(match.range.first - 1, 0), min(match.range.last + 1, inputList.first().length - 1))
 
-
-                println(inputList)
 
                 if (
                     inputList.getOrNull(row - 1)?.slice(range)?.contains(characterRegex) == true
@@ -37,15 +31,14 @@ object Day03 : Day(3, "Day3") {
                     || inputList[row].getOrNull(match.range.first - 1)?.toString()?.matches(characterRegex) == true
                     || inputList[row].getOrNull(match.range.last + 1)?.toString()?.matches(characterRegex) == true
                 ) {
-                    println("Added ${match.value.toInt()}")
                     result += match.value.toInt()
                 }
+
 
             }
         }
 
         return result
-
 
     }
 
