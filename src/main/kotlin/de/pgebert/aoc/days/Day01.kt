@@ -2,7 +2,7 @@ package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
 
-object Day01 : Day(1, "Trebuchet?!") {
+class Day01(input: String? = null) : Day(1, "Trebuchet?!", input) {
 
     private val numberStringsByValue = mapOf(
         "one" to "1",

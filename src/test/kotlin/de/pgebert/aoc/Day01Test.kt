@@ -2,7 +2,6 @@ package de.pgebert.aoc
 
 import de.pgebert.aoc.days.Day01
 import de.pgebert.aoc.utils.shouldBe
-import de.pgebert.aoc.utils.withInput
 import org.junit.jupiter.api.Test
 
 
@@ -17,9 +16,9 @@ class Day01Test {
             treb7uchet
         """
 
-        val day = Day01.withInput(example)
+        val day = Day01(input = example)
 
         day.partOne() shouldBe 142
     }
-    
+
 }

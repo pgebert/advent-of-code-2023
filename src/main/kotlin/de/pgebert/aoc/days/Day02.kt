@@ -2,7 +2,7 @@ package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
 
-object Day02 : Day(2, "Cube Conundrum") {
+class Day02(input: String? = null) : Day(2, "Cube Conundrum", input) {
 
     override fun partOne() =
         inputList.mapNotNull(::getGameIdOfValidInputLine).sum()

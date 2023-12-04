@@ -69,7 +69,6 @@ class Day03(input: String? = null) : Day(3, "Gear Ratios", input) {
 
 
                     if (numbers.size == 2) {
-                        println("Found gear at ${index}, ${match.range.first} with a=${numbers.first()}, b=${numbers.last()}")
                         result += numbers.first() * numbers.last()
                     }
 

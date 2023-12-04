@@ -19,7 +19,6 @@ class Day04Test {
     @Test
     fun `testing day 4 partOne example`() {
 
-
         val day = Day04(input = example)
 
         day.partOne() shouldBe 13
