@@ -5,63 +5,34 @@ import kotlin.math.pow
 
 class Day04(input: String? = null) : Day(4, "Scratchcards", input) {
 
-    infix fun Int.`**`(exponent: Int): Int = toDouble().pow(exponent).toInt()
+    private val scratchcard = ".*:(.*)\\|(.*)".toRegex()
 
-    override fun partOne(): Int {
-
-        val gameSplitter = ".*:(.*)\\|(.*)".toRegex()
-
-        var result = 0
-
-        inputList.forEach { line ->
-
-            val (found, all) = gameSplitter.find(line)!!.destructured
-
-            val wins = found.split(" ").filter { it.isNotBlank() }.toSet()
-                .intersect(all.split(" ").filter { it.isNotBlank() }.toSet())
-
-            val worth = when {
-                wins.isEmpty() -> 0
-                else -> 1 * 2.pow(wins.size - 1)
-            }
-
-            result += worth
-
-        }
-
-        return result
+    override fun partOne() = inputList.sumOf { line ->
+        scratchcard.find(line)
+            ?.destructured
+            ?.map { it.split(" ").filter { it.isNotBlank() }.toSet() }
+            ?.let { (winning, all) -> winning.intersect(all).powTwoMinusOne() }
+            ?: 0
     }
 
     override fun partTwo(): Int {
 
-        val gameSplitter = "Card\\s+(\\d+):(.*)\\|(.*)".toRegex()
+        val cardCount = inputList.indices.associateWith { 1 }.toMutableMap()
 
-        val cardCount = buildMap {
-            inputList.indices.forEach {
-                put(it + 1, 1)
+        inputList.mapIndexedNotNull { card, line ->
+            scratchcard.find(line)
+                ?.destructured
+                ?.map { it.split(" ").filter { it.isNotBlank() }.toSet() }
+                ?.let { (winning, all) -> Pair(card, winning.intersect(all)) }
+        }.forEach { (card, wins) ->
+            wins.indices.forEach { i ->
+                cardCount[card + i + 1] = cardCount[card + i + 1]!! + cardCount[card]!!
             }
-        }.toMutableMap()
-
-
-        inputList.forEach { line ->
-
-            val (number, found, all) = gameSplitter.find(line)!!.destructured
-
-
-            val cardNumber = number.toInt()
-
-            val wins = found.split(" ").filter { it.isNotBlank() }.toSet()
-                .intersect(all.split(" ").filter { it.isNotBlank() }.toSet())
-
-            wins.indices.forEach {
-                cardCount[cardNumber + it + 1] = cardCount[cardNumber + it + 1]!! + cardCount[cardNumber]!! * 1
-            }
-
         }
 
         return cardCount.values.sum()
-
     }
-}
 
-private fun Int.pow(n: Int): Int = toDouble().pow(n).toInt()
+    private fun Set<String>.powTwoMinusOne(): Int = if (isNotEmpty()) (2.0).pow(size - 1).toInt() else 0
+    private fun <R> MatchResult.Destructured.map(transform: (String) -> R) = toList().map(transform)
+}

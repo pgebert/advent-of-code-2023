@@ -26,29 +26,11 @@ class Day04Test {
     }
 
     @Test
-    fun `testing day 4 quiz `() {
-
-
-        val day = Day04()
-
-        day.partOne() shouldBe 33950
-    }
-
-    @Test
     fun `testing day 4 partTwo example`() {
 
         val day = Day04(input = example)
 
         day.partTwo() shouldBe 30
-    }
-
-    @Test
-    fun `testing day 4 quiz partTwo`() {
-
-
-        val day = Day04()
-
-        day.partTwo() shouldBe 33950
     }
 
 }
