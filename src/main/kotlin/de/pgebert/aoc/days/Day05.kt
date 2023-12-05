@@ -24,7 +24,7 @@ class Day05(input: String? = null) : Day(5, "If You Give A Seed A Fertilizer", i
                 jumpToNextMapping()
             }
         }
-        return@with value
+        return value
     }
 
     private fun Iterator<String>.jumpToNextMapping() {
@@ -44,7 +44,7 @@ class Day05(input: String? = null) : Day(5, "If You Give A Seed A Fertilizer", i
 
         var mapped = mutableListOf<LongRange>()
 
-        for (line in this@with) {
+        for (line in this) {
 
             if (line.isBlank()) continue
 
