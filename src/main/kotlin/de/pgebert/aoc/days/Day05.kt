@@ -13,9 +13,7 @@ class Day05(input: String? = null) : Day(5, "If You Give A Seed A Fertilizer", i
     override fun partOne(): Long = with(inputList.iterator()) {
         var value = next().removePrefix(SEEDS_PREFIX).split(" ").mapNotNull { it.toLongOrNull() }.min()
 
-        while (hasNext()) {
-
-            val line = next()
+        for (line in this) {
 
             if (line.isBlank() || line.first().isLetter()) continue
 
