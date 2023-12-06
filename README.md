@@ -1,8 +1,8 @@
 # 🎄 [Advent Of Code 2023](https://adventofcode.com/2023)
 
-![Current day](https://img.shields.io/badge/Day-5-blue)
-![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-10-yellow)
-![Days completed](https://img.shields.io/badge/Days%20Completed-5-red)
+![Current day](https://img.shields.io/badge/Day-6-blue)
+![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-12-yellow)
+![Days completed](https://img.shields.io/badge/Days%20Completed-6-red)
 
 ### Daily Solution Index
 
@@ -13,7 +13,7 @@
 | ✔ 03 | Gear Ratios                     |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day03.kt) |
 | ✔ 04 | Scratchcards                    |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day04.kt) |
 | ✔ 05 | If You Give A Seed A Fertilizer |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day05.kt) |
-| ⚪ 06 | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day06.kt) |
+| ✔ 06 | Wait For It                     |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day06.kt) |
 | ⚪ 07 | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day07.kt) |
 | ⚪ 08 | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day08.kt) |
 | ⚪ 09 | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day09.kt) |
