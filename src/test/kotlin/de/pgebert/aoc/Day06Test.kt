@@ -13,37 +13,22 @@ class Day06Test {
         """
 
     @Test
-    fun `testing day 6 partOne example`() {
-
-        val day = Day06(input = example)
-
-        day.partOne() shouldBe 288L
+    fun `testing partOne example`() {
+        Day06(input = example).partOne() shouldBe 288L
     }
 
     @Test
-    fun `testing day 6 partOne`() {
-
-        val day = Day06()
-
-        day.partOne() shouldBe 2374848L
-    }
-
-
-    @Test
-    fun `testing day 6 partTwo example`() {
-
-        val day = Day06(input = example)
-
-        day.partTwo() shouldBe 71503L
+    fun `testing partOne`() {
+        Day06().partOne() shouldBe 2374848L
     }
 
     @Test
-    fun `testing day 6 partTwo`() {
-
-        val day = Day06()
-
-        day.partTwo() shouldBe 39132886L
+    fun `testing partTwo example`() {
+        Day06(input = example).partTwo() shouldBe 71503L
     }
 
-
+    @Test
+    fun `testing partTwo`() {
+        Day06().partTwo() shouldBe 39132886L
+    }
 }

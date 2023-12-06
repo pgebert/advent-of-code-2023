@@ -7,18 +7,16 @@ import org.junit.jupiter.api.Test
 
 class Day01Test {
 
-    @Test
-    fun `testing day 1 example`() {
-        val example = """
+    val example = """
             1abc2
             pqr3stu8vwx
             a1b2c3d4e5f
             treb7uchet
         """
 
-        val day = Day01(input = example)
-
-        day.partOne() shouldBe 142
+    @Test
+    fun `testing partOne example`() {
+        Day01(input = example).partOne() shouldBe 142
     }
 
 }

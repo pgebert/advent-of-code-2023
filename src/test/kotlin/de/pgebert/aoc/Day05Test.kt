@@ -44,37 +44,22 @@ class Day05Test {
         """
 
     @Test
-    fun `testing day 5 partOne example`() {
-
-        val day = Day05(input = example)
-
-        day.partOne() shouldBe 35
+    fun `testing partOne example`() {
+        Day05(input = example).partOne() shouldBe 35
     }
 
     @Test
-    fun `testing day 5 partOne`() {
-
-        val day = Day05()
-
-        day.partOne() shouldBe 457535844
+    fun `testing partOne`() {
+        Day05().partOne() shouldBe 457535844
     }
-
 
     @Test
     fun `testing day 5 partTwo example`() {
-
-        val day = Day05(input = example)
-
-        day.partTwo() shouldBe 46
+        Day05(input = example).partTwo() shouldBe 46
     }
 
     @Test
     fun `testing day 5 partTwo`() {
-
-        val day = Day05()
-
-        day.partTwo() shouldBe 41222968
+        Day05().partTwo() shouldBe 41222968
     }
-
-
 }

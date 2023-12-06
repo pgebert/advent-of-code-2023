@@ -21,20 +21,13 @@ class Day03Test {
         """
 
     @Test
-    fun `testing day 3 partOne example`() {
-
-
-        val day = Day03(input = example)
-
-        day.partOne() shouldBe 4361
+    fun `testing partOne example`() {
+        Day03(input = example).partOne() shouldBe 4361
     }
 
     @Test
-    fun `testing day 3 partTwo example`() {
-
-        val day = Day03(input = example)
-
-        day.partTwo() shouldBe 467835
+    fun `testing partTwo example`() {
+        Day03(input = example).partTwo() shouldBe 467835
     }
 
 }
