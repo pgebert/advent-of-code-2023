@@ -10,19 +10,12 @@ class Day08(input: String? = null) : Day(8, "Haunted Wasteland", input) {
 
     override fun partOne(): Int {
 
-        val instructions = inputList.first()
-
-        val nodes = inputList.filter { it.isNotEmpty() }.drop(1).map { line ->
-            val (start, left, right) = nodeRegex.find(line)!!.destructured
-            start to Pair(left, right)
-        }.toMap()
+        val (instructions, nodes) = parseInput()
 
         var currentNode = "AAA"
         var steps = 0
 
-        while (true) {
-
-            if (currentNode == "ZZZ") break
+        while (currentNode != "ZZZ") {
 
             currentNode = nodes[currentNode]!!.let {
                 when (instructions[steps % instructions.length]) {
@@ -30,37 +23,22 @@ class Day08(input: String? = null) : Day(8, "Haunted Wasteland", input) {
                     else -> it.second
                 }
             }
-
             steps++
-
         }
-
         return steps
-
     }
-
 
     override fun partTwo(): Long {
 
-        val instructions = inputList.first()
-
-        val nodes = inputList.filter { it.isNotEmpty() }.drop(1).map { line ->
-            val (start, left, right) = nodeRegex.find(line)!!.destructured
-            start to Pair(left, right)
-        }.toMap()
-
+        val (instructions, nodes) = parseInput()
 
         var startNodes = nodes.keys.filter { it.endsWith("A") }
-        val stepList = mutableListOf<Int>()
 
-
-        startNodes.forEach {
+        return startNodes.map {
             var currentNode = it
             var steps = 0
 
-            while (true) {
-
-                if (currentNode.endsWith("Z")) break
+            while (!currentNode.endsWith("Z")) {
 
                 currentNode = nodes[currentNode]!!.let {
                     when (instructions[steps % instructions.length]) {
@@ -68,15 +46,21 @@ class Day08(input: String? = null) : Day(8, "Haunted Wasteland", input) {
                         else -> it.second
                     }
                 }
-
                 steps++
-
             }
-            stepList.add(steps)
-        }
-
-        return stepList.map { it.toLong() }.reduce(::lcm).toLong()
-
+            steps.toLong()
+        }.reduce(::lcm)
     }
 
+
+    private fun parseInput(): Pair<String, Map<String, Pair<String, String>>> {
+        val instructions = inputList.first()
+
+        val nodes = inputList.filter { it.isNotEmpty() }.drop(1).map { line ->
+            val (start, left, right) = nodeRegex.find(line)!!.destructured
+            start to Pair(left, right)
+        }.toMap()
+
+        return Pair(instructions, nodes)
+    }
 }
