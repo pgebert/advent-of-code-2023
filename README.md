@@ -1,8 +1,8 @@
 # 🎄 [Advent Of Code 2023](https://adventofcode.com/2023)
 
-![Current day](https://img.shields.io/badge/Day-7-blue)
-![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-14-yellow)
-![Days completed](https://img.shields.io/badge/Days%20Completed-7-red)
+![Current day](https://img.shields.io/badge/Day-8-blue)
+![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-16-yellow)
+![Days completed](https://img.shields.io/badge/Days%20Completed-8-red)
 
 ### Daily Solution Index
 
@@ -15,7 +15,7 @@
 | ✔ 05  | If You Give A Seed A Fertilizer |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day05.kt) |
 | ✔ 06  | Wait For It                     |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day06.kt) |
 | ✔  07 | Camel Cards                     |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day07.kt) |
-| ⚪ 08  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day08.kt) |
+| ✔ 08  | Haunted Wasteland               |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day08.kt) |
 | ⚪ 09  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day09.kt) |
 | ⚪ 10  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day10.kt) |
 | ⚪ 11  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day11.kt) |
