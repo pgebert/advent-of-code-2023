@@ -25,7 +25,7 @@ class AllDaysTest {
         Answer(Day06(), 2374848L, 39132886L),
         Answer(Day07(), 250474325, 248909434),
         Answer(Day08(), 21409, 21165830176709),
-        Answer(Day09(), NOT_IMPLEMENTED, NOT_IMPLEMENTED),
+        Answer(Day09(), 1887980197, 990),
         Answer(Day10(), NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day11(), NOT_IMPLEMENTED, NOT_IMPLEMENTED),
         Answer(Day12(), NOT_IMPLEMENTED, NOT_IMPLEMENTED),
