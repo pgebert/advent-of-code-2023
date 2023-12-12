@@ -1,7 +1,7 @@
 # 🎄 [Advent Of Code 2023](https://adventofcode.com/2023)
 
-![Current day](https://img.shields.io/badge/Day-9-blue)
-![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-18-yellow)
+![Current day](https://img.shields.io/badge/Day-12-blue)
+![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-19-yellow)
 ![Days completed](https://img.shields.io/badge/Days%20Completed-9-red)
 
 ### Daily Solution Index
@@ -17,9 +17,9 @@
 | ✔  07 | Camel Cards                     |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day07.kt) |
 | ✔ 08  | Haunted Wasteland               |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day08.kt) |
 | ✔ 09  | Mirage Maintenance              |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day09.kt) |
-| ⚪ 10  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day10.kt) |
-| ⚪ 11  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day11.kt) |
-| ⚪ 12  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day12.kt) |
+| ⚪ 10  | Pipe Maze                       |   ⭐    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day10.kt) |
+| ⚪ 11  | Cosmic Expansion                |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day11.kt) |
+| ⚪ 12  | Hot Springs                     |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day12.kt) |
 | ⚪ 13  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day13.kt) |
 | ⚪ 14  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day14.kt) |
 | ⚪ 15  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day15.kt) |
