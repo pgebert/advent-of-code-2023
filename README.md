@@ -33,3 +33,14 @@
 | ⚪ 23  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day23.kt) |
 | ⚪ 24  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day24.kt) |
 | ⚪ 25  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day25.kt) |
+
+# Miscellaneous
+
+## 🔎 Template
+
+This project used the [advent-of-code-kotlin-template](https://github.com/pgebert/advent-of-code-kotlin-template) which
+is a ready-to-use template for advent of code written in kotlin - just use it and start coding! 🚀
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
