@@ -7,23 +7,34 @@ import org.junit.jupiter.api.Test
 
 class Day12Test {
 
-    private val example = """
 
+    private val example = """
+        ???.### 1,1,3
+        .??..??...?##. 1,1,3
+        ?#?#?#?#?#?#?#? 1,3,1,6
+        ????.#...#... 4,1,1
+        ????.######..#####. 1,6,5
+        ?###???????? 3,2,1
         """
 
     @Test
     fun `testing partOne example`() {
-        Day12(input = example).partOne() shouldBe NOT_IMPLEMENTED
+        Day12(input = example).partOne() shouldBe 21
+    }
+
+    @Test
+    fun `testing partOne example test`() {
+        Day12(input = example).isValid("#.#.###", "1,1,3") shouldBe true
     }
 
     @Test
     fun `testing partOne`() {
-        Day12().partOne() shouldBe NOT_IMPLEMENTED
+        Day12().partOne() shouldBe 8193
     }
 
     @Test
     fun `testing partTwo example`() {
-        Day12(input = example).partTwo() shouldBe NOT_IMPLEMENTED
+        Day12(input = example).partTwo() shouldBe 525152
     }
 
     @Test

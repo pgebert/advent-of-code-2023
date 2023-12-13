@@ -10,6 +10,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+
+    implementation("com.github.shiguruikai:combinatoricskt:1.6.0")
 }
 
 tasks.test {
