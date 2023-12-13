@@ -31,13 +31,8 @@ class Day11Test {
     }
 
     @Test
-    fun `testing partTwo example`() {
-        Day11(input = example).partTwo() shouldBe NOT_IMPLEMENTED
-    }
-
-    @Test
     fun `testing partTwo`() {
-        Day11().partTwo() shouldBe NOT_IMPLEMENTED
+        Day11().partTwo() shouldBe 560822911938
     }
 
 }

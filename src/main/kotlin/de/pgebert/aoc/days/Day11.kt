@@ -1,21 +1,24 @@
 package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
-import de.pgebert.aoc.NOT_IMPLEMENTED
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 
 class Day11(input: String? = null) : Day(11, "Cosmic Expansion", input) {
 
-    override fun partOne(): Int {
-
-        val universum = inputList.map { it.toList() }.expandHorizontal().expandVertical()
-
-        return universum.findGalaxies().computeDistances()
-
+    override fun partOne(): Long = with(inputList) {
+        val (rowsToDuplicate, columnsToDuplicate) = findRowsAndColumnsToDuplicate()
+        return findGalaxies().computeDistances(rowsToDuplicate, columnsToDuplicate, 2)
     }
 
-    private fun List<List<Char>>.findGalaxies(): List<Pair<Int, Int>> {
+    override fun partTwo(): Long = with(inputList) {
+        val (rowsToDuplicate, columnsToDuplicate) = findRowsAndColumnsToDuplicate()
+        return findGalaxies().computeDistances(rowsToDuplicate, columnsToDuplicate, 1000000)
+    }
+
+    private fun List<String>.findGalaxies(): List<Pair<Int, Int>> {
         val galaxies = mutableListOf<Pair<Int, Int>>()
         for (row in indices) {
             for (col in this[row].indices) {
@@ -27,44 +30,39 @@ class Day11(input: String? = null) : Day(11, "Cosmic Expansion", input) {
         return galaxies
     }
 
-    private fun List<Pair<Int, Int>>.computeDistances(): Int {
+    private fun List<Pair<Int, Int>>.computeDistances(
+        rowsToDuplicate: List<Int>,
+        columnsToDuplicate: List<Int>,
+        factor: Int
+    ): Long {
         val remaining = ArrayDeque<Pair<Int, Int>>()
         remaining += this
 
-        var distances = 0
+        var distances = 0L
 
         while (remaining.isNotEmpty()) {
             val a = remaining.removeFirst()
             remaining.forEach { b ->
-                distances += a.distanceTo(b)
+                distances += a.distanceTo(b, rowsToDuplicate, columnsToDuplicate, factor)
             }
         }
         return distances
     }
 
-    private fun Pair<Int, Int>.distanceTo(other: Pair<Int, Int>) =
-        abs(first - other.first) + abs(second - other.second)
+    private fun Pair<Int, Int>.distanceTo(
+        other: Pair<Int, Int>,
+        rowsToDuplicate: List<Int>,
+        columnsToDuplicate: List<Int>,
+        factor: Int
+    ) = (abs(first - other.first)
+            + abs(second - other.second)
+            + rowsToDuplicate.count { it in min(first, other.first)..max(first, other.first) } * (factor - 1)
+            + columnsToDuplicate.count { it in min(second, other.second)..max(second, other.second) } * (factor - 1))
 
-
-    override fun partTwo() = NOT_IMPLEMENTED
-
-    fun List<List<Char>>.expandHorizontal() = buildList {
-        this@expandHorizontal.forEach { row ->
-            add(row)
-            if (row.all { it == '.' }) add(row)
-        }
+    private fun List<String>.findRowsAndColumnsToDuplicate(): Pair<List<Int>, List<Int>> {
+        val rowsToDuplicate = indices.filter { i -> inputList[i].all { it == '.' } }
+        val columnsToDuplicate = first().indices.filter { i -> inputList.all { it[i] == '.' } }
+        return Pair(rowsToDuplicate, columnsToDuplicate)
     }
 
-    fun List<List<Char>>.expandVertical() = this.transpose().expandHorizontal().transpose()
-
-
-    fun <T> List<List<T>>.transpose(): List<List<T>> = buildList {
-        for (i in this@transpose.first().indices) {
-            val col: MutableList<T> = ArrayList()
-            this@transpose.forEach { row ->
-                col.add(row[i])
-            }
-            add(col)
-        }
-    }
 }
