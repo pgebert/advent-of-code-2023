@@ -5,21 +5,19 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
+private typealias Point = Pair<Int, Int>
 
 class Day11(input: String? = null) : Day(11, "Cosmic Expansion", input) {
 
-    override fun partOne(): Long = with(inputList) {
-        val (rowsToDuplicate, columnsToDuplicate) = findRowsAndColumnsToDuplicate()
-        return findGalaxies().computeDistances(rowsToDuplicate, columnsToDuplicate, 2)
-    }
+    private val rowsToDuplicate = inputList.indices.filter { i -> inputList[i].all { it == '.' } }
+    private val columnsToDuplicate = inputList.first().indices.filter { i -> inputList.all { it[i] == '.' } }
 
-    override fun partTwo(): Long = with(inputList) {
-        val (rowsToDuplicate, columnsToDuplicate) = findRowsAndColumnsToDuplicate()
-        return findGalaxies().computeDistances(rowsToDuplicate, columnsToDuplicate, 1000000)
-    }
+    override fun partOne() = inputList.findGalaxies().computeDistances(2)
+    
+    override fun partTwo() = inputList.findGalaxies().computeDistances(1000000)
 
-    private fun List<String>.findGalaxies(): List<Pair<Int, Int>> {
-        val galaxies = mutableListOf<Pair<Int, Int>>()
+    private fun List<String>.findGalaxies(): List<Point> {
+        val galaxies = mutableListOf<Point>()
         for (row in indices) {
             for (col in this[row].indices) {
                 if (this[row][col] == '#') {
@@ -30,12 +28,8 @@ class Day11(input: String? = null) : Day(11, "Cosmic Expansion", input) {
         return galaxies
     }
 
-    private fun List<Pair<Int, Int>>.computeDistances(
-        rowsToDuplicate: List<Int>,
-        columnsToDuplicate: List<Int>,
-        factor: Int
-    ): Long {
-        val remaining = ArrayDeque<Pair<Int, Int>>()
+    private fun List<Point>.computeDistances(factor: Int): Long {
+        val remaining = ArrayDeque<Point>()
         remaining += this
 
         var distances = 0L
@@ -43,26 +37,19 @@ class Day11(input: String? = null) : Day(11, "Cosmic Expansion", input) {
         while (remaining.isNotEmpty()) {
             val a = remaining.removeFirst()
             remaining.forEach { b ->
-                distances += a.distanceTo(b, rowsToDuplicate, columnsToDuplicate, factor)
+                distances += a.distanceTo(b, factor)
             }
         }
         return distances
     }
 
-    private fun Pair<Int, Int>.distanceTo(
-        other: Pair<Int, Int>,
-        rowsToDuplicate: List<Int>,
-        columnsToDuplicate: List<Int>,
-        factor: Int
-    ) = (abs(first - other.first)
-            + abs(second - other.second)
-            + rowsToDuplicate.count { it in min(first, other.first)..max(first, other.first) } * (factor - 1)
-            + columnsToDuplicate.count { it in min(second, other.second)..max(second, other.second) } * (factor - 1))
+    private fun Point.distanceTo(other: Point, factor: Int): Int {
 
-    private fun List<String>.findRowsAndColumnsToDuplicate(): Pair<List<Int>, List<Int>> {
-        val rowsToDuplicate = indices.filter { i -> inputList[i].all { it == '.' } }
-        val columnsToDuplicate = first().indices.filter { i -> inputList.all { it[i] == '.' } }
-        return Pair(rowsToDuplicate, columnsToDuplicate)
+        val rowsBetween = min(first, other.first)..max(first, other.first)
+        val columnsBetween = min(second, other.second)..max(second, other.second)
+
+        return (abs(first - other.first) + abs(second - other.second)
+                + rowsToDuplicate.count { it in rowsBetween } * (factor - 1)
+                + columnsToDuplicate.count { it in columnsBetween } * (factor - 1))
     }
-
 }
