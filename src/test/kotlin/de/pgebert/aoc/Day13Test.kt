@@ -8,17 +8,31 @@ import org.junit.jupiter.api.Test
 class Day13Test {
 
     private val example = """
-
+        #.##..##.
+        ..#.##.#.
+        ##......#
+        ##......#
+        ..#.##.#.
+        ..##..##.
+        #.#.##.#.
+        
+        #...##..#
+        #....#..#
+        ..##..###
+        #####.##.
+        #####.##.
+        ..##..###
+        #....#..#
         """
 
     @Test
     fun `testing partOne example`() {
-        Day13(input = example).partOne() shouldBe NOT_IMPLEMENTED
+        Day13(input = example).partOne() shouldBe 405
     }
 
     @Test
     fun `testing partOne`() {
-        Day13().partOne() shouldBe NOT_IMPLEMENTED
+        Day13().partOne() shouldBe 34918
     }
 
     @Test
