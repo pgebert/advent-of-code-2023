@@ -1,7 +1,7 @@
 # 🎄 [Advent Of Code 2023](https://adventofcode.com/2023)
 
 ![Current day](https://img.shields.io/badge/Day-13-blue)
-![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%21⭐-20-yellow)
+![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-22-yellow)
 ![Days completed](https://img.shields.io/badge/Days%20Completed-10-red)
 
 ### Daily Solution Index
