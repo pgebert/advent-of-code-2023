@@ -1,8 +1,8 @@
 # 🎄 [Advent Of Code 2023](https://adventofcode.com/2023)
 
 ![Current day](https://img.shields.io/badge/Day-15-blue)
-![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-24-yellow)
-![Days completed](https://img.shields.io/badge/Days%20Completed-10-red)
+![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-25-yellow)
+![Days completed](https://img.shields.io/badge/Days%20Completed-11-red)
 
 ### Daily Solution Index
 
@@ -22,7 +22,7 @@
 | ⚪ 12  | Hot Springs                     |   ⭐    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day12.kt) |
 | ⚪ 13  | Point of Incidence              |   ⭐    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day13.kt) |
 | ⚪ 14  | Parabolic Reflector Dish        |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day14.kt) |
-| ⚪ 15  | Lens Library                    |   ⭐    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day15.kt) |
+| ✔ 15  | Lens Library                    |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day15.kt) |
 | ⚪ 16  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day16.kt) |
 | ⚪ 17  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day17.kt) |
 | ⚪ 18  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day18.kt) |

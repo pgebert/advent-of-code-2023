@@ -23,12 +23,12 @@ class Day15Test {
 
     @Test
     fun `testing partTwo example`() {
-        Day15(input = example).partTwo() shouldBe NOT_IMPLEMENTED
+        Day15(input = example).partTwo() shouldBe 145
     }
 
     @Test
     fun `testing partTwo`() {
-        Day15().partTwo() shouldBe NOT_IMPLEMENTED
+        Day15().partTwo() shouldBe 215827
     }
 
 }
