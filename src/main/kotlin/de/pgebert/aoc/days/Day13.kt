@@ -58,7 +58,7 @@ class Day13(input: String? = null) : Day(13, "Point of Incidence", input) {
     }
 
 
-    fun List<String>.isReflection(index: Int, tolerance: Int): Boolean {
+    private fun List<String>.isReflection(index: Int, tolerance: Int): Boolean {
         // reflection before index
 
         val range = min(index, size - index)
