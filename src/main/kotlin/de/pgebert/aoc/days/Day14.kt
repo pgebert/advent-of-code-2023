@@ -17,6 +17,30 @@ class Day14(input: String? = null) : Day(14, "Parabolic Reflector Dish", input) 
 
     override fun partOne() = roundStones.shiftNorth().sumOf { stone -> inputList.size - stone.x }
 
+    override fun partTwo(): Int {
+
+        val iterations = 1000000000
+
+        var shifted = roundStones
+
+        val history = mutableListOf<Set<Point>>()
+
+        for (i in 0..<iterations) {
+            shifted = shifted.shiftNorth().shiftWest().shiftSouth().shiftEast()
+
+            if (shifted in history) {
+                val first = history.indexOf(shifted)
+                val cycleLength = i - first
+                val offset = (iterations - 1 - first) % cycleLength
+                shifted = history[first + offset]
+                break
+            }
+            history.add(shifted)
+        }
+
+        return shifted.sumOf { stone -> inputList.size - stone.x }
+    }
+
     private fun Set<Point>.shiftNorth() =
         sortedBy { it.x }.fold(setOf<Point>()) { shifted, (x, y) ->
             val newX = (listOf(Point(-1, y)) + cubicStones + shifted)
@@ -67,31 +91,5 @@ class Day14(input: String? = null) : Day(14, "Parabolic Reflector Dish", input) 
 
         cubicStones = cubic.toSet()
         roundStones = round.toSet()
-    }
-
-    override fun partTwo(): Int {
-
-        var shifted = roundStones
-
-        for (i in 0..<1000000000) {
-            val next = shifted.shiftNorth().shiftWest().shiftSouth().shiftEast()
-            if (next == shifted) break
-            shifted = next
-
-        }
-
-//        buildString {
-//            inputList.forEachIndexed { x, line ->
-//                line.forEachIndexed { y, char ->
-//                    if (cubicStones.any { it.first == x && it.second == y }) append("#")
-//                    else if (shifted.any { it.first == x && it.second == y }) append("O")
-//                    else append(".")
-//                }
-//                append("\n")
-//            }
-//        }.also { print(it) }
-
-
-        return shifted.sumOf { stone -> inputList.size - stone.x }
     }
 }
