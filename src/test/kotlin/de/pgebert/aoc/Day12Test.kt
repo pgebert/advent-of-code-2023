@@ -23,11 +23,6 @@ class Day12Test {
     }
 
     @Test
-    fun `testing partOne example test`() {
-        Day12(input = example).isValid("#.#.###", "1,1,3") shouldBe true
-    }
-
-    @Test
     fun `testing partOne`() {
         Day12().partOne() shouldBe 8193
     }
@@ -39,7 +34,7 @@ class Day12Test {
 
     @Test
     fun `testing partTwo`() {
-        Day12().partTwo() shouldBe NOT_IMPLEMENTED
+        Day12().partTwo() shouldBe 45322533163795
     }
 
 }

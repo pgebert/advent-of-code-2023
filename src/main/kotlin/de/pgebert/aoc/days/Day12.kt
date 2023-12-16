@@ -6,57 +6,71 @@ class Day12(input: String? = null) : Day(12, "Hot Springs", input) {
 
     override fun partOne() = inputList.sumOf { line ->
 
-        val (unknown, specification) = line.split(" ")
+        val splitted = line.split(" ")
 
-        unknown.candidates().count { configuration ->
-            isValid(configuration, specification)
-        }
-    }
+        val configuration = splitted.first()
+        val specification = splitted.last().split(",").map { it.toInt() }
 
-    fun String.candidates() = sequence {
-
-        val placeholder = "?"
-        val replacements = listOf(".", "#")
-
-        val queue = ArrayDeque<String>()
-        queue += this@candidates
-
-        while (queue.isNotEmpty()) {
-            val next = queue.removeFirst()
-            if (next.contains(placeholder)) {
-                replacements.forEach { replacement ->
-                    queue += next.replaceFirst(placeholder, replacement)
-                }
-            } else {
-                yield(next)
-            }
-
-        }
-
-
-    }
-
-    fun isValid(configuration: String, specification: String): Boolean {
-        val pattern = buildString {
-            append("^\\.*")
-            specification.split(",").forEach {
-                append("#{$it}(\\.+|$)")
-            }
-        }.toRegex()
-
-        return pattern.matches(configuration)
+        countPossibleMatches(configuration, specification)
     }
 
     override fun partTwo() = inputList.sumOf { line ->
 
-        val (unknown, specification) = line.split(" ").unfold()
+        val splitted = line.split(" ")
 
-        unknown.candidates().count { configuration ->
-            isValid(configuration, specification)
-        }
+        val configuration = buildList { repeat(5) { add(splitted.first()) } }.joinToString("?")
+        val specification = buildList { repeat(5) { addAll(splitted.last().split(",").map { it.toInt() }) } }
+
+        countPossibleMatches(configuration, specification)
     }
 
-    fun List<String>.unfold() =
-        MutableList(5) { this[0] }.joinToString("?") to MutableList(5) { this[1] }.joinToString("")
+
+    private fun countPossibleMatches(text: String, numbers: List<Int>): Long {
+
+        val states = buildString {
+            append(".")
+            numbers.forEach { number ->
+                repeat(number) { append("#") }
+                append(".")
+            }
+        }
+
+        var countByState = mutableMapOf(0 to 1L)
+        var newCountByState = mutableMapOf<Int, Long>()
+
+        text.forEach { character ->
+            countByState.forEach { (state, count) ->
+                if (character == '?') {
+                    // move to next state
+                    if (state + 1 < states.length) {
+                        newCountByState[state + 1] = newCountByState.getOrDefault(state + 1, 0) + count
+                    }
+                    // stay in current state
+                    if (states[state] == '.') {
+                        newCountByState[state] = newCountByState.getOrDefault(state, 0) + count
+                    }
+                } else if (character == '.') {
+                    // move to next state
+                    if (state + 1 < states.length && states[state + 1] == '.') {
+                        newCountByState[state + 1] = newCountByState.getOrDefault(state + 1, 0) + count
+                    }
+                    // stay in current state
+                    if (states[state] == '.') {
+                        newCountByState[state] = newCountByState.getOrDefault(state, 0) + count
+                    }
+                } else if (character == '#') {
+                    // move to next state
+                    if (state + 1 < states.length && states[state + 1] == '#') {
+                        newCountByState[state + 1] = newCountByState.getOrDefault(state + 1, 0) + count
+                    }
+                }
+            }
+            countByState = newCountByState
+            newCountByState = mutableMapOf()
+        }
+
+        return (countByState.getOrDefault(states.length - 1, 0) + countByState.getOrDefault(states.length - 2, 0))
+
+    }
 
 }
