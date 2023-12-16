@@ -8,17 +8,26 @@ import org.junit.jupiter.api.Test
 class Day16Test {
 
     private val example = """
-
+            .|...\....
+            |.-.\.....
+            .....|-...
+            ........|.
+            ..........
+            .........\
+            ..../.\\..
+            .-.-/..|..
+            .|....-|.\
+            ..//.|....
         """
 
     @Test
     fun `testing partOne example`() {
-        Day16(input = example).partOne() shouldBe NOT_IMPLEMENTED
+        Day16(input = example).partOne() shouldBe 46
     }
 
     @Test
     fun `testing partOne`() {
-        Day16().partOne() shouldBe NOT_IMPLEMENTED
+        Day16().partOne() shouldBe 7472
     }
 
     @Test
