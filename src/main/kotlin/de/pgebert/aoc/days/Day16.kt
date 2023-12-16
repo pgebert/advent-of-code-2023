@@ -1,38 +1,36 @@
 package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
-import de.pgebert.aoc.NOT_IMPLEMENTED
 
 class Day16(input: String? = null) : Day(16, "The Floor Will Be Lava", input) {
 
 
-    data class Point(val x: Int, val y: Int) {
+    private val obstacles = parseObstacles()
 
-        fun plus(other: Point) = Point(x + other.x, y + other.y)
+    override fun partOne() = Beam(position = Point(0, -1), direction = Point(0, 1)).getNumberOfEnergizedTiles()
 
+    override fun partTwo() = getStartingBeams().maxOf { beam -> beam.getNumberOfEnergizedTiles() }
+
+    private fun getStartingBeams(): List<Beam> {
+        val startingBeams = buildList<Beam> {
+            for (x in inputList.indices) {
+                add(Beam(position = Point(x, -1), direction = Point(0, 1)))
+                add(Beam(position = Point(x, inputList[x].length), direction = Point(0, -1)))
+            }
+            for (y in inputList.first().indices) {
+                add(Beam(position = Point(-1, y), direction = Point(1, 0)))
+                add(Beam(position = Point(inputList.size, y), direction = Point(-1, 0)))
+            }
+        }
+        return startingBeams
     }
 
-    data class Beam(val position: Point, val direction: Point)
-
-    data class Obstacle(val position: Point, val character: Char)
-
-    override fun partOne(): Int {
+    private fun Beam.getNumberOfEnergizedTiles(): Int {
 
         val visited = mutableSetOf<Beam>()
 
-        val obstacles = mutableListOf<Obstacle>()
-
-        for (x in inputList.indices) {
-            for (y in inputList[x].indices) {
-                val char = inputList[x][y]
-                if (char != '.') {
-                    obstacles.add(Obstacle(position = Point(x, y), character = char))
-                }
-            }
-        }
-
         val queue = ArrayDeque<Beam>()
-        queue += Beam(position = Point(0, -1), direction = Point(0, 1))
+        queue += this
 
         while (queue.isNotEmpty()) {
             val beam = queue.removeFirst()
@@ -79,5 +77,25 @@ class Day16(input: String? = null) : Day(16, "The Floor Will Be Lava", input) {
         return visited.map { it.position }.toSet().size
     }
 
-    override fun partTwo() = NOT_IMPLEMENTED
+    private fun parseObstacles() =
+        buildList {
+            for (x in inputList.indices) {
+                for (y in inputList[x].indices) {
+                    val char = inputList[x][y]
+                    if (char != '.') {
+                        add(Obstacle(position = Point(x, y), character = char))
+                    }
+                }
+            }
+        }
+
+    data class Point(val x: Int, val y: Int) {
+
+        fun plus(other: Point) = Point(x + other.x, y + other.y)
+
+    }
+
+    data class Beam(val position: Point, val direction: Point)
+
+    data class Obstacle(val position: Point, val character: Char)
 }
