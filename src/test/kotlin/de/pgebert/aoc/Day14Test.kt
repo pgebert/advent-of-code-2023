@@ -32,7 +32,7 @@ class Day14Test {
 
     @Test
     fun `testing partTwo example`() {
-        Day14(input = example).partTwo() shouldBe NOT_IMPLEMENTED
+        Day14(input = example).partTwo() shouldBe 64
     }
 
     @Test

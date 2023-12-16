@@ -1,34 +1,83 @@
 package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
-import de.pgebert.aoc.NOT_IMPLEMENTED
 
-private typealias Point = Pair<Int, Int>
 
 class Day14(input: String? = null) : Day(14, "Parabolic Reflector Dish", input) {
 
-    override fun partOne(): Int {
 
-        val cubicStones = mutableListOf<Point>()
-        val roundStones = mutableListOf<Point>()
-        val shifted = mutableListOf<Point>()
+    data class Point(val x: Int, val y: Int)
+
+    private var cubicStones = setOf<Point>()
+    private var roundStones = setOf<Point>()
+
+    init {
+        parseStones()
+    }
+
+    override fun partOne() = roundStones.shiftNorth().sumOf { stone -> inputList.size - stone.x }
+
+    private fun Set<Point>.shiftNorth() =
+        sortedBy { it.x }.fold(setOf<Point>()) { shifted, (x, y) ->
+            val newX = (listOf(Point(-1, y)) + cubicStones + shifted)
+                .filter { it.y == y && it.x < x }
+                .maxOf { it.x + 1 }
+
+            shifted + Point(newX, y)
+        }
+
+    private fun Set<Point>.shiftSouth() =
+        sortedByDescending { it.x }.fold(setOf<Point>()) { shifted, (x, y) ->
+            val newX = (listOf(Point(inputList.size, y)) + cubicStones + shifted)
+                .filter { it.y == y && it.x > x }
+                .minOf { it.x - 1 }
+
+            shifted + Point(newX, y)
+        }
+
+    private fun Set<Point>.shiftEast() =
+        sortedByDescending { it.y }.fold(setOf<Point>()) { shifted, (x, y) ->
+            val newY = (listOf(Point(x, inputList.first().length)) + cubicStones + shifted)
+                .filter { it.x == x && it.y > y }
+                .minOf { it.y - 1 }
+
+            shifted + Point(x, newY)
+        }
+
+    private fun Set<Point>.shiftWest() =
+        sortedBy { it.y }.fold(setOf<Point>()) { shifted, (x, y) ->
+            val newY = (listOf(Point(x, -1)) + cubicStones + shifted)
+                .filter { it.x == x && it.y < y }
+                .maxOf { it.y + 1 }
+
+            shifted + Point(x, newY)
+        }
+
+    private fun parseStones() {
+
+        val cubic = mutableListOf<Point>()
+        val round = mutableListOf<Point>()
 
         inputList.forEachIndexed { x, line ->
             line.forEachIndexed { y, char ->
-                if (char == '#') cubicStones.add(Point(x, y))
-                else if (char == 'O') roundStones.add(Point(x, y))
+                if (char == '#') cubic.add(Point(x, y))
+                else if (char == 'O') round.add(Point(x, y))
             }
         }
 
-        roundStones.sortedBy { it.first }.forEach { stone ->
-            val newX = (listOf(0)
-                    + cubicStones.filter { it.second == stone.second && it.first < stone.first }.map { it.first + 1 }
-                    + shifted.filter { it.second == stone.second && it.first < stone.first }.map { it.first + 1 })
-                .max()
+        cubicStones = cubic.toSet()
+        roundStones = round.toSet()
+    }
 
-            val new = Point(newX, stone.second)
+    override fun partTwo(): Int {
 
-            shifted.add(new)
+        var shifted = roundStones
+
+        for (i in 0..<1000000000) {
+            val next = shifted.shiftNorth().shiftWest().shiftSouth().shiftEast()
+            if (next == shifted) break
+            shifted = next
+
         }
 
 //        buildString {
@@ -42,8 +91,7 @@ class Day14(input: String? = null) : Day(14, "Parabolic Reflector Dish", input) 
 //            }
 //        }.also { print(it) }
 
-        return shifted.sumOf { stone -> inputList.size - stone.first }
-    }
 
-    override fun partTwo() = NOT_IMPLEMENTED
+        return shifted.sumOf { stone -> inputList.size - stone.x }
+    }
 }
