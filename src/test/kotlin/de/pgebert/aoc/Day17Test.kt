@@ -30,17 +30,17 @@ class Day17Test {
 
     @Test
     fun `testing partOne`() {
-        Day17().partOne() shouldBe NOT_IMPLEMENTED
+        Day17().partOne() shouldBe 1099
     }
 
     @Test
     fun `testing partTwo example`() {
-        Day17(input = example).partTwo() shouldBe NOT_IMPLEMENTED
+        Day17(input = example).partTwo() shouldBe 94
     }
 
     @Test
     fun `testing partTwo`() {
-        Day17().partTwo() shouldBe NOT_IMPLEMENTED
+        Day17().partTwo() shouldBe 1266
     }
 
 }

@@ -1,144 +1,91 @@
 package de.pgebert.aoc.days
 
 import de.pgebert.aoc.Day
-import de.pgebert.aoc.NOT_IMPLEMENTED
 import java.util.*
 
 
 class Day17(input: String? = null) : Day(17, "Day17", input) {
 
 
-    data class Point(val x: Int, val y: Int)
+    data class Node(val x: Int, val y: Int, val direction: Direction, val directionCount: Int)
 
+    enum class Direction { NORTH, SOUTH, EAST, WEST }
 
     private val map = inputList.map { line -> line.map { it.digitToInt() } }
 
-    override fun partOne(): Int {
+    override fun partOne() = findPathOfMinimalLoss(maxConsecutiveBlocks = 3)
 
-        val losses = mutableMapOf<Point, Int>().withDefault { Int.MAX_VALUE }
-        val predecessors = mutableMapOf<Point, Point>()
+    override fun partTwo() = findPathOfMinimalLoss(minConsecutiveBlocks = 4, maxConsecutiveBlocks = 10)
 
+    private fun findPathOfMinimalLoss(
+        minConsecutiveBlocks: Int = 0,
+        maxConsecutiveBlocks: Int = Int.MAX_VALUE
+    ): Int {
+        val losses = mutableMapOf<Node, Int>().withDefault { Int.MAX_VALUE }
+        val predecessors = mutableMapOf<Node, Node>()
 
-        val compareByLoss: Comparator<Point> = compareBy { losses.getValue(it) }
-        val queue = PriorityQueue<Point>(compareByLoss)
+        val compareByLoss: Comparator<Node> = compareBy { losses.getValue(it) }
+        val queue = PriorityQueue<Node>(compareByLoss)
 
-        losses[Point(0, 0)] = 0
-
-        for (x in map.indices) {
-            for (y in map[x].indices) {
-                queue += Point(x, y)
-            }
+        listOf(
+            Node(0, 0, Direction.EAST, 1),
+            Node(0, 0, Direction.SOUTH, 1)
+        ).forEach {
+            losses[it] = 0
+            queue += it
         }
 
         while (queue.isNotEmpty()) {
             val current = queue.remove()
 
-            val neighbours = buildList<Point> {
-                if (current.x + 1 < map.size && predecessors.from(current).take(3).count { it.y == current.y } < 3) {
-                    add(Point(current.x + 1, current.y))
-                }
-                if (current.x - 1 >= 0 && predecessors.from(current).take(3).count { it.y == current.y } < 3) {
-                    add(Point(current.x - 1, current.y))
-                }
-                if (current.y + 1 < map[current.x].size && predecessors.from(current).take(3)
-                        .count { it.x == current.x } < 3
-                ) {
-                    add(Point(current.x, current.y + 1))
-                }
-                if (current.y - 1 >= 0 && predecessors.from(current).take(3).count { it.x == current.x } < 3) {
-                    add(Point(current.x, current.y - 1))
+            val neighbours = buildList {
+                if (current.directionCount < minConsecutiveBlocks) {
+                    current.moveInto(current.direction)?.also { add(it) }
+                } else {
+                    Direction.values().forEach { direction ->
+                        current.moveInto(direction)
+                            ?.takeIf { it.directionCount <= maxConsecutiveBlocks }
+                            ?.also { add(it) }
+                    }
                 }
             }
 
-            neighbours.filter { it in queue }.forEach { neighbour ->
+            neighbours.forEach { neighbour ->
                 val alternative = losses.getValue(current) + map[neighbour.x][neighbour.y]
                 if (alternative < losses.getValue(neighbour)) {
                     losses[neighbour] = alternative
                     predecessors[neighbour] = current
-                    queue.update(neighbour)
+                    queue.add(neighbour)
                 }
             }
-
-//            with(current) {
-//                if (x + 1 < map.size
-//                    && losses.getValue(Point(x, y)) + map[x + 1][y] < losses.getValue(Point(x + 1, y))
-//                    && predecessors.getPredecessors(current).take(3).count { it.y == y } < 3
-//                ) {
-//                    losses[Point(x + 1, y)] = losses.getValue(Point(x, y)) + map[x + 1][y]
-//                    queue.add(Point(x + 1, y))
-//                    predecessors[Point(x + 1, y)] = current
-//                }
-//                if (x - 1 >= 0
-//                    && losses.getValue(Point(x, y)) + map[x - 1][y] < losses.getValue(Point(x - 1, y))
-//                    && predecessors.getPredecessors(current).take(3).count { it.y == y } < 3
-//                ) {
-//                    losses[Point(x - 1, y)] = losses.getValue(Point(x, y)) + map[x - 1][y]
-//                    queue.add(Point(x - 1, y))
-//                    predecessors[Point(x - 1, y)] = current
-//                }
-//                if (y + 1 < map[x].size
-//                    && losses.getValue(Point(x, y)) + map[x][y + 1] < losses.getValue(Point(x, y + 1))
-//                    && predecessors.getPredecessors(current).take(3).count { it.x == x } < 3
-//                ) {
-//                    losses[Point(x, y + 1)] = losses.getValue(Point(x, y)) + map[x][y + 1]
-//                    queue.add(Point(x, y + 1))
-//                    predecessors[Point(x, y + 1)] = current
-//
-//                }
-//                if (y - 1 >= 0
-//                    && losses.getValue(Point(x, y)) + map[x][y - 1] < losses.getValue(Point(x, y - 1))
-//                    && predecessors.getPredecessors(current).take(3).count { it.x == x } < 3
-//                ) {
-//                    losses[Point(x, y - 1)] = losses.getValue(Point(x, y)) + map[x][y - 1]
-//                    queue.add(Point(x, y - 1))
-//                    predecessors[Point(x, y - 1)] = current
-//                }
-//            }
         }
 
-        buildString {
-            val visited = predecessors.from(Point(map.size - 1, map[map.size - 1].size - 1))
-
-            for (x in map.indices) {
-                for (y in map[x].indices) {
-                    if (Point(x, y) in visited) append("X")
-                    else append(map[x][y])
-                }
-                append("\n")
-            }
-        }.also { print(it) }
-        print("\n")
-        buildString {
-            val visited = predecessors.from(Point(map.size - 1, map[map.size - 1].size - 1))
-
-            for (x in map.indices) {
-                for (y in map[x].indices) {
-                    if (Point(x, y) in visited) append(losses[Point(x, y)])
-                    else append(".")
-                }
-                append("\n")
-            }
-        }.also { print(it) }
-
-        return losses.getValue(Point(map.size - 1, map[map.size - 1].size - 1))
+        return losses.filterKeys { it.x == map.size - 1 && it.y == map[map.size - 1].size - 1 }.minOf { it.value }
     }
 
-    fun MutableMap<Point, Point>.from(point: Point): List<Point> {
 
-        var current: Point? = point
-        var predecessors = mutableListOf<Point>()
+    private fun Node.moveInto(direction: Direction): Node? {
 
-        while (current != null) {
-            predecessors.add(current)
-            current = this[current]
+        val isOppositeDirection = when (direction) {
+            Direction.NORTH -> this.direction == Direction.SOUTH
+            Direction.SOUTH -> this.direction == Direction.NORTH
+            Direction.EAST -> this.direction == Direction.WEST
+            Direction.WEST -> this.direction == Direction.EAST
         }
-        return predecessors
+
+        if (isOppositeDirection) return null
+
+        val (newX, newY) = when (direction) {
+            Direction.NORTH -> Pair(x - 1, y)
+            Direction.SOUTH -> Pair(x + 1, y)
+            Direction.EAST -> Pair(x, y + 1)
+            Direction.WEST -> Pair(x, y - 1)
+        }
+
+        if (newX !in map.indices || newY !in map[newX].indices) return null
+
+        val newDirectionCount = if (direction == this.direction) directionCount + 1 else 1
+
+        return Node(newX, newY, direction, newDirectionCount)
     }
-
-    override fun partTwo() = NOT_IMPLEMENTED
-}
-
-private fun <E> PriorityQueue<E>.update(element: E) {
-    remove(element)
-    add(element)
 }
