@@ -1,8 +1,8 @@
 # 🎄 [Advent Of Code 2023](https://adventofcode.com/2023)
 
-![Current day](https://img.shields.io/badge/Day-17-blue)
-![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-33-yellow)
-![Days completed](https://img.shields.io/badge/Days%20Completed-16-red)
+![Current day](https://img.shields.io/badge/Day-18-blue)
+![Stars obtained](https://img.shields.io/badge/Stars%20Obtained%20⭐-35-yellow)
+![Days completed](https://img.shields.io/badge/Days%20Completed-17-red)
 
 ### Daily Solution Index
 
@@ -25,7 +25,7 @@
 | ✔ 15  | Lens Library                    |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day15.kt) |
 | ✔ 16  | The Floor Will Be Lava          |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day16.kt) |
 | ✔ 17  | Clumsy Crucible                 |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day17.kt) |
-| ⚪ 18  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day18.kt) |
+| ✔ 18  | Lavaduct Lagoon                 |   ⭐    |   ⭐    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day18.kt) |
 | ⚪ 19  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day19.kt) |
 | ⚪ 20  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day20.kt) |
 | ⚪ 21  | (not released)                  |   ⚪    |   ⚪    | [![Code](https://img.shields.io/badge/Code-grey?style=for-the-badge&logo=Kotlin)](src/main/kotlin/de/pgebert/aoc/days/Day21.kt) |
