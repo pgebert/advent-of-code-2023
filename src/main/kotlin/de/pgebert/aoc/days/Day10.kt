@@ -11,43 +11,24 @@ class Day10(input: String? = null) : Day(10, "Pipe Maze", input) {
         val weight: Int
     )
 
-    override fun partOne(): Int {
+    data class Point(val x: Int, val y: Int)
 
-        val visited = mutableSetOf<Cell>()
-        val queue = ArrayDeque<Cell>()
-        queue += getInitial()
-        while (queue.isNotEmpty()) {
-            val cell = queue.removeFirst()
-            visited.add(cell)
 
-            val successors = cell.getSuccessors()
+    override fun partOne() = findLoop().maxOf { it.weight }
 
-            successors.forEach { successor ->
-                val visitedCell = visited.firstOrNull { it.x == successor.x && it.y == successor.y }
-                if (visitedCell != null) {
-                    if (successor.weight < visitedCell.weight) {
-                        visited.remove(visitedCell)
-                        queue.add(successor)
-                    }
-                } else {
-                    queue.add(successor)
-                }
+    override fun partTwo() = findLoop().countEnclosed()
+
+
+    private fun getInitial(): Cell {
+        for (x in inputList.indices) {
+            for (y in inputList[x].indices) {
+                if (inputList[x][y] == 'S') return Cell(x, y, 'S', 0)
             }
         }
-
-        return visited.maxOf { it.weight }
+        throw Exception("Can not find start")
     }
 
-    fun getInitial(): Cell {
-        inputList.forEachIndexed { x, line ->
-            line.indexOf('S').takeIf { it != -1 }?.let { y ->
-                return Cell(x, y, 'S', 0)
-            }
-        }
-        return Cell(0, 0, 'S', 0)
-    }
-
-    fun Cell.getSuccessors(): List<Cell> {
+    private fun Cell.getSuccessors(): List<Cell> {
 
         val left = inputList[x].getOrNull(y - 1)
         val right = inputList[x].getOrNull(y + 1)
@@ -84,8 +65,30 @@ class Day10(input: String? = null) : Day(10, "Pipe Maze", input) {
 
     }
 
-    override fun partTwo(): Int {
+    private fun Set<Cell>.countEnclosed(): Int {
+        var enclosed = 0
+        val loop = map { Point(it.x, it.y) }
 
+        for (x in inputList.indices) {
+            var inside = false
+            for (y in inputList[x].indices) {
+
+                val current = inputList[x][y]
+                val next = inputList[x].drop(y + 1).firstOrNull { it != '-' }
+
+                if (Point(x, y) in loop) {
+                    if (current == '|' || (current == 'F' && next == 'J') || (current == 'L' && next == '7')) {
+                        inside = !inside
+                    }
+                } else if (inside) {
+                    enclosed++
+                }
+            }
+        }
+        return enclosed
+    }
+
+    private fun findLoop(): MutableSet<Cell> {
         val visited = mutableSetOf<Cell>()
         val queue = ArrayDeque<Cell>()
         queue += getInitial()
@@ -107,51 +110,7 @@ class Day10(input: String? = null) : Day(10, "Pipe Maze", input) {
                 }
             }
         }
-
-        var enclosed = mutableSetOf<Cell>()
-
-        inputList.forEachIndexed { x, line ->
-            line.forEachIndexed { y, char ->
-
-
-//                if (!visited.any { it.x == x && it.y == y }
-//                    && visited.count { it.x == x && it.y < y } % 2 == 1
-//                    && visited.count { it.x == x && it.y > y } % 2 == 1
-//                    && visited.count { it.y == y && it.x < x } % 2 == 1
-//                    && visited.count { it.y == y && it.x > x } % 2 == 1
-//                )
-
-
-                if (!visited.any { it.x == x && it.y == y }
-                    && visited.any { it.x > x && it.y == y }
-                    && visited.any { it.x < x && it.y == y }
-                    && visited.any { it.y > y && it.x == x }
-                    && visited.any { it.y < y && it.x == x }
-                ) {
-                    enclosed.add(Cell(x, y, 'I', 0))
-                }
-
-            }
-        }
-
-
-        val stringBuilder = StringBuilder()
-        for (x in inputList.indices) {
-            for (y in inputList.first().indices) {
-                if (visited.any { it.x == x && it.y == y }) {
-                    stringBuilder.append("X")
-//                    stringBuilder.append(inputList[x][y])
-                } else if (enclosed.any { it.x == x && it.y == y }) {
-                    stringBuilder.append("I")
-                } else {
-//                    stringBuilder.append(inputList[x][y])
-                    stringBuilder.append(".")
-                }
-            }
-            stringBuilder.append("\n")
-        }
-        print(stringBuilder)
-
-        return enclosed.size
+        return visited
     }
+
 }

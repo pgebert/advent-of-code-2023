@@ -38,7 +38,6 @@ class Day10Test {
         L7JLJL-JLJLJL--JLJ.L
         """
 
-
     @Test
     fun `testing partTwo example`() {
         Day10(input = example2).partTwo() shouldBe 10
@@ -46,14 +45,7 @@ class Day10Test {
 
     @Test
     fun `testing partTwo`() {
-        Day10().partTwo() shouldBe NOT_IMPLEMENTED
-
-//        350 too high
-    }
-
-    @Test
-    fun `testing getInitial example`() {
-        Day10(input = example).getInitial() shouldBe Day10.Cell(1, 1, 'S', 0)
+        Day10().partTwo() shouldBe 305
     }
 
 }
