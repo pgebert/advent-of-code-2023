@@ -19,6 +19,31 @@ class Day10(input: String? = null) : Day(10, "Pipe Maze", input) {
     override fun partTwo() = findLoop().countEnclosed()
 
 
+    private fun findLoop(): MutableSet<Cell> {
+        val visited = mutableSetOf<Cell>()
+        val queue = ArrayDeque<Cell>()
+        queue += getInitial()
+        while (queue.isNotEmpty()) {
+            val cell = queue.removeFirst()
+            visited.add(cell)
+
+            val successors = cell.getSuccessors()
+
+            successors.forEach { successor ->
+                val visitedCell = visited.firstOrNull { it.x == successor.x && it.y == successor.y }
+                if (visitedCell != null) {
+                    if (successor.weight < visitedCell.weight) {
+                        visited.remove(visitedCell)
+                        queue.add(successor)
+                    }
+                } else {
+                    queue.add(successor)
+                }
+            }
+        }
+        return visited
+    }
+
     private fun getInitial(): Cell {
         for (x in inputList.indices) {
             for (y in inputList[x].indices) {
@@ -26,6 +51,29 @@ class Day10(input: String? = null) : Day(10, "Pipe Maze", input) {
             }
         }
         throw Exception("Can not find start")
+    }
+
+    private fun Set<Cell>.countEnclosed(): Int {
+        var enclosed = 0
+        val loop = map { Point(it.x, it.y) }
+
+        for (x in inputList.indices) {
+            var inside = false
+            for (y in inputList[x].indices) {
+
+                val current = inputList[x][y]
+                val next = inputList[x].drop(y + 1).firstOrNull { it != '-' }
+
+                if (Point(x, y) in loop) {
+                    if (current == '|' || (current == 'F' && next == 'J') || (current == 'L' && next == '7')) {
+                        inside = !inside
+                    }
+                } else if (inside) {
+                    enclosed++
+                }
+            }
+        }
+        return enclosed
     }
 
     private fun Cell.getSuccessors(): List<Cell> {
@@ -61,56 +109,5 @@ class Day10(input: String? = null) : Day(10, "Pipe Maze", input) {
                 if (bottom != null && bottom in "|LJ") add(Cell(x + 1, y, bottom, weight + 1))
             }
         }
-
-
     }
-
-    private fun Set<Cell>.countEnclosed(): Int {
-        var enclosed = 0
-        val loop = map { Point(it.x, it.y) }
-
-        for (x in inputList.indices) {
-            var inside = false
-            for (y in inputList[x].indices) {
-
-                val current = inputList[x][y]
-                val next = inputList[x].drop(y + 1).firstOrNull { it != '-' }
-
-                if (Point(x, y) in loop) {
-                    if (current == '|' || (current == 'F' && next == 'J') || (current == 'L' && next == '7')) {
-                        inside = !inside
-                    }
-                } else if (inside) {
-                    enclosed++
-                }
-            }
-        }
-        return enclosed
-    }
-
-    private fun findLoop(): MutableSet<Cell> {
-        val visited = mutableSetOf<Cell>()
-        val queue = ArrayDeque<Cell>()
-        queue += getInitial()
-        while (queue.isNotEmpty()) {
-            val cell = queue.removeFirst()
-            visited.add(cell)
-
-            val successors = cell.getSuccessors()
-
-            successors.forEach { successor ->
-                val visitedCell = visited.firstOrNull { it.x == successor.x && it.y == successor.y }
-                if (visitedCell != null) {
-                    if (successor.weight < visitedCell.weight) {
-                        visited.remove(visitedCell)
-                        queue.add(successor)
-                    }
-                } else {
-                    queue.add(successor)
-                }
-            }
-        }
-        return visited
-    }
-
 }
